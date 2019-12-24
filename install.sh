@@ -33,6 +33,8 @@ APPS=(
 
 )
 
+# Check if you are root
+
 update_system
 install_packages "${BASE_PACKAGES[@]}"
 

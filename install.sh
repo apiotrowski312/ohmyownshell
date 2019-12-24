@@ -1,38 +1,41 @@
 #!/bin/bash
 
-PACKAGES=(
+source ./scripts/common_functions.sh
+
+BASE_PACKAGES=(
   software-properties-common
+  build-essential
+
+  fd
+  fduped
+  fzf
 
   bat
   htop
   jq
-
-  hadolint
-  shellcheck
-
-  vs-code
-  brave
-  Oracle VM Box
-
-  go
-  python3-7
-
-  # Other
   dos2unix
 )
 
-update_system () {
-  apt-get update
-  pkon update
-}
+APPS=(
+  # add Gestures (MACOS like)
 
-install_packages () {
-  for package in "${PACKAGES[@]}"
-  do
-    apt-get install -y "${package}"
-  done
-}
+  hadolint
+  shellcheck
+  nodejs
 
+  go
+
+  vscode
+  yakuake
+  brave
+  VMBox
+  docker
+
+)
 
 update_system
-install_packages
+install_packages "${BASE_PACKAGES[@]}"
+
+
+
+# Stacer Kdenlive Simplenote

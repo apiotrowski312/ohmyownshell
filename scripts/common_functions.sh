@@ -31,8 +31,8 @@ function install_packages() {
 function install_latest_release_from_github() {
   link=$(curl -L $1 | jq '.assets[].browser_download_url' | grep 'amd64.deb')
 
-  wget -o /tmp/package.deb $link
-  deb /tmp/package.deb
+  wget -O /tmp/package.deb $link
+  apt install /tmp/package.deb
 }
 
 function install_github_apps() {

@@ -10,6 +10,8 @@ function info_log() {
 
 function error_log() {
     echo -e "[${RED_COLOR}ERROR${NO_COLOR}] [$(date -R)] $1"
+
+    exit 1
 }
 
 function update_system() {
@@ -18,7 +20,7 @@ function update_system() {
 }
 
 function install_package() {
-    apt-get install -y "$1" || (error_log "Troubles with package $1" && exit 1)
+    apt-get install -y "$1" || error_log "Troubles with package $1"
 }
 
 function install_packages() {
@@ -28,16 +30,29 @@ function install_packages() {
   done
 }
 
-function install_latest_release_from_github() {
-  link=$(curl -L $1 | jq '.assets[].browser_download_url' | grep 'amd64.deb')
+function prepare_link_from_github() {
+  l=($(curl -L "$1" | jq -r '.assets[].browser_download_url' | grep 'amd64.deb'))
 
-  wget -O /tmp/package.deb $link
-  apt install /tmp/package.deb
+  echo "${l[0]}"
+}
+
+function install_deb_file() {
+    echo $1
+    wget -O /tmp/package.deb "$1" || error_log "Something went wrong with wget $1"
+    apt install -y /tmp/package.deb || error_log "Troubles with installing deb package $1"
 }
 
 function install_github_apps() {
   for url in "$@"
   do
-    install_latest_release_from_github "${url}"
+    link="$(prepare_link_from_github "${url}")"
+    install_deb_file "$link"
+  done
+}
+
+function install_deb_apps() {
+  for url in "$@"
+  do
+    install_deb_file "$url"
   done
 }

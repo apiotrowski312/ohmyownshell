@@ -38,7 +38,7 @@ function prepare_link_from_github() {
 
 function install_deb_file() {
     echo $1
-    wget -O /tmp/package.deb "$1" || error_log "Something went wrong with wget $1"
+    curl -o /tmp/package.deb -L "$1" || error_log "Something went wrong with curl $1"
     apt install -y /tmp/package.deb || error_log "Troubles with installing deb package $1"
 }
 
@@ -54,5 +54,12 @@ function install_deb_apps() {
   for url in "$@"
   do
     install_deb_file "$url"
+  done
+}
+
+function install_snaps() {
+  for app in "$@"
+  do
+    snap install "$app" || error_log "Troubles with snap $app"
   done
 }

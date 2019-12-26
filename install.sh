@@ -21,6 +21,9 @@ BASE_PACKAGES=(
 GITHUB_RELEASES=(
   https://api.github.com/repos/sharkdp/bat/releases/latest
   https://api.github.com/repos/sharkdp/fd/releases/latest
+
+  https://api.github.com/repos/oguzhaninan/Stacer/releases/latest
+  https://api.github.com/repos/Automattic/simplenote-electron/releases/latest
 )
 
 DEB_LINKS=(
@@ -37,10 +40,8 @@ SNAPS_CLASSIC=(
   go
 )
 
-APPS=(
-  # add Gestures (MACOS like)
+TO_WORKAROUND_IN_FUTURE=(
   hadolint
-  fzf
   fdupes
   VMBox
 )
@@ -64,9 +65,12 @@ function main() {
   install_snaps "${SNAPS[@]}"
   install_snaps_classic "${SNAPS_CLASSIC[@]}"
 
+  # work arounds
+  install_fzf
+
   setup_all
 }
 
 main
 
-# Stacer Kdenlive Simplenote
+# Kdenlive Simplenote

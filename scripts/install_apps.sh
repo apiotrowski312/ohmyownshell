@@ -56,3 +56,8 @@ function install_snaps_classic() {
     snap install "$app" --classic || error_log "Troubles with snap --classic $app"
   done
 }
+
+function install_fzf() {
+  git clone --depth 1 https://github.com/junegunn/fzf.git $(eval echo ~$SUDO_USER)/.fzf
+  $(eval echo ~$SUDO_USER)/.fzf/install
+}

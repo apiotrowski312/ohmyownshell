@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source ./scripts/common_functions.sh
+source ./scripts/install_apps.sh
+source ./scripts/link.sh
 
 BASE_PACKAGES=(
   software-properties-common
@@ -41,12 +42,16 @@ APPS=(
 )
 
 # Check if you are root
+function main() {
+  update_system
+  install_packages "${BASE_PACKAGES[@]}"
+  install_github_apps "${GITHUB_RELEASES[@]}"
+  install_deb_apps "${DEB_LINKS[@]}"
+  install_snaps "${SNAPS[@]}"
 
-update_system
-install_packages "${BASE_PACKAGES[@]}"
-install_github_apps "${GITHUB_RELEASES[@]}"
-install_deb_apps "${DEB_LINKS[@]}"
-install_snaps "${SNAPS[@]}"
+  setup_all
+}
 
+main
 
 # Stacer Kdenlive Simplenote

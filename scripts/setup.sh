@@ -1,21 +1,26 @@
 #!/bin/bash
 
-function add_variables() {
-  # echo source $(PWD)/../.variables >> ~/.bashrc
-  echo $PWD
+declare homedir
+homedir=$(eval echo ~$SUDO_USER)
+
+function remove_section() {
+  sed -i '/## SCRIPT START/,/## SCRIPT END/d' $homedir/.bashrc
 }
 
-function add_aliases() {
-  echo source $(PWD)/../.aliases >> ~/.bashrc
+function add_source() {
+  echo source "$(dirname $(readlink -f $0))/../.variables" >> $homedir/.bashrc
+  echo source "$(dirname $(readlink -f $0))/../.aliases" >> $homedir/.bashrc
 }
 
 function docker_no_sudo() {
   groupadd docker
-  usermod -aG docker $USER
+  usermod -aG docker $SUDO_USER
 }
 
 function setup_all() {
-  add_variables
-  add_aliases
+  remove_section
+  echo "## SCRIPT START" >> $homedir/.bashrc
+  add_source
+  echo "## SCRIPT END" >> $homedir/.bashrc
   docker_no_sudo
 }

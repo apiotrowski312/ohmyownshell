@@ -25,7 +25,7 @@ function prepare_link_from_github() {
 function install_deb_file() {
     echo $1
     curl -o /tmp/package.deb -L "$1" || error_log "Something went wrong with curl $1"
-    apt install -y /tmp/package.deb || error_log "Troubles with installing deb package $1"
+    apt install -y --allow-downgrades /tmp/package.deb || error_log "Troubles with installing deb package $1"
 }
 
 function install_github_apps() {
@@ -59,5 +59,5 @@ function install_snaps_classic() {
 
 function install_fzf() {
   git clone --depth 1 https://github.com/junegunn/fzf.git $(eval echo ~$SUDO_USER)/.fzf
-  $(eval echo ~$SUDO_USER)/.fzf/install
+  yes | $(eval echo ~$SUDO_USER)/.fzf/install
 }

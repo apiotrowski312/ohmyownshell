@@ -10,6 +10,7 @@ BASE_PACKAGES=(
 
   htop
   jq
+  ncdu
   dos2unix
   shellcheck
 
@@ -34,6 +35,7 @@ SNAPS=(
   brave
   docker
   postman
+  kdenlive
 )
 
 SNAPS_CLASSIC=(
@@ -65,12 +67,10 @@ function main() {
   install_snaps "${SNAPS[@]}"
   install_snaps_classic "${SNAPS_CLASSIC[@]}"
 
-  # work arounds
+  # workarounds
   install_fzf
 
   setup_all
 }
 
 main
-
-# Kdenlive Simplenote

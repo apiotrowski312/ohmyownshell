@@ -23,15 +23,25 @@ function add_source_section() {
   remove_section
 
   start_section
+
   add_line_to_section .variables
   add_line_to_section .aliases
+  add_line_to_section .editor
   add_line_to_section fzf.sh
+  add_line_to_section .ssh-agent
+
   end_section
 }
 
 function docker_no_sudo() {
   groupadd docker
   usermod -aG docker $SUDO_USER
+
+  snap connect docker:account-control :account-control
+  snap connect docker:home :home
+
+  snap disable docker
+  snap enable  docker
 }
 
 function setup_all() {

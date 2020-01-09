@@ -20,5 +20,5 @@ alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 
 # shadow commands
-alias cat='bat'
+alias cat='bat --paging=never'
 alias ocat='/bin/cat'

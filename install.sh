@@ -48,6 +48,10 @@ TO_WORKAROUND_IN_FUTURE=(
   VMBox
 )
 
+AUTOSTART=(
+  yakuake
+)
+
 function was_run_as_sudo() {
   if [[ -z "$SUDO_USER" ]]; then
     error_log "run script with sudo"
@@ -71,6 +75,8 @@ function main() {
   install_fzf
 
   setup_all
+
+  add_app_to_autostart "${AUTOSTART[@]}"
 }
 
 main

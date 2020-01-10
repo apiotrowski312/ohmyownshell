@@ -21,7 +21,6 @@ function end_section() {
 
 function add_source_section() {
   remove_section
-
   start_section
 
   add_line_to_section .variables
@@ -47,4 +46,12 @@ function docker_no_sudo() {
 function setup_all() {
   add_source_section
   docker_no_sudo
+}
+
+function add_app_to_autostart() {
+  for app in "$@"; do
+    cp /usr/share/applications/*${app}* ${homedir}/.config/autostart
+    chmod 744 ${homedir}/.config/autostart/*${app}*
+    chown $SUDO_USER:$SUDO_USER ${homedir}/.config/autostart/*${app}*
+  done
 }

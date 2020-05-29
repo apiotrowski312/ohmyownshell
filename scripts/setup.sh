@@ -35,22 +35,10 @@ function add_source_section() {
 function docker_no_sudo() {
   groupadd docker
   usermod -aG docker $SUDO_USER
-
-  snap connect docker:account-control :account-control
-  snap connect docker:home :home
-
-  snap disable docker
-  snap enable  docker
 }
 
 function docker_auto_completition() {
   curl -L https://raw.githubusercontent.com/docker/compose/1.25.0/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compos
-}
-
-function setup_all() {
-  add_source_section
-  docker_no_sudo
-  docker_auto_completition
 }
 
 function add_app_to_autostart() {

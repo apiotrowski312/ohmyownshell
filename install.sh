@@ -7,14 +7,25 @@ source "$(dirname $(readlink -f $0))/scripts/logs.sh"
 BASE_PACKAGES=(
   software-properties-common
   build-essential
+  apt-transport-https
+  ca-certificates
+  curl
+  gnupg-agent
 
   htop
   jq
   ncdu
   dos2unix
   shellcheck
+  xclip
+  tree
+  imagemagick
+  git
 
   yakuake
+  filezilla
+  kdenlive
+  krita
 
   snapd
 )
@@ -32,20 +43,16 @@ DEB_LINKS=(
 )
 
 SNAPS=(
-  brave
-  docker
   postman
-  kdenlive
 )
 
-SNAPS_CLASSIC=(
-  go
-)
 
 TO_WORKAROUND_IN_FUTURE=(
   hadolint
   fdupes
   VMBox
+  kdenlive
+  go
 )
 
 AUTOSTART=(
@@ -60,21 +67,25 @@ function was_run_as_sudo() {
   fi
 }
 
-# Check if you are root
 function main() {
   was_run_as_sudo
 
+  ## install apps
   update_system
   install_packages "${BASE_PACKAGES[@]}"
   install_github_apps "${GITHUB_RELEASES[@]}"
   install_deb_apps "${DEB_LINKS[@]}"
   install_snaps "${SNAPS[@]}"
-  install_snaps_classic "${SNAPS_CLASSIC[@]}"
 
-  # workarounds
+  ## workarounds
   install_fzf
+  install_docker
+  install_brave
 
-  setup_all
+  ## setup
+  add_source_section
+  docker_no_sudo
+  docker_auto_completition
 
   add_app_to_autostart "${AUTOSTART[@]}"
 }

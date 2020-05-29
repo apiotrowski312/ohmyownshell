@@ -61,3 +61,25 @@ function install_fzf() {
   git clone --depth 1 https://github.com/junegunn/fzf.git $(eval echo ~$SUDO_USER)/.fzf
   yes | $(eval echo ~$SUDO_USER)/.fzf/install
 }
+
+function install_docker() {
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  apt-key fingerprint 0EBFCD88
+  add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+  apt-get update
+  apt-get install -y docker-ce docker-ce-cli containerd.io
+
+  curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  chmod +x /usr/local/bin/docker-compose
+}
+
+function install_brave() {
+  apt install apt-transport-https curl
+  curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
+  echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+  apt update
+  apt install -y brave-browser
+}

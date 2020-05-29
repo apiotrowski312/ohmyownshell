@@ -13,14 +13,20 @@ alias kga='kubectl get all'
 # chef
 alias knifee='knife environment'
 
+# linux utils
+alias magic-keyboard="echo 2 > /sys/module/hid_apple/parameters/fnmode"
+alias disable-touchpad="xinput set-prop 12 \"Device Enabled\" 0"
+alias enable-touchpad="xinput set-prop 12 \"Device Enabled\" 1"
+alias sound-hdmi="pacmd set-card-profile 0 output:hdmi-stereo+input:analog-stereo"
+alias sound-laptop="pacmd set-card-profile 0 output:analog-stereo+input:analog-stereo"
+
+# golang
+alias git-go-lines="git ls-files | grep -P \".*(go)\" | xargs cat | wc -l"
+
 # other
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 alias update='sudo pkcon update'
-alias git-go-lines="git ls-files | grep -P \".*(go)\" | xargs cat | wc -l"
-alias magic-keyboard="echo 2 > /sys/module/hid_apple/parameters/fnmode"
-alias disable-touchpad="xinput set-prop 12 \"Device Enabled\" 0"
-alias enable-touchpad="xinput set-prop 12 \"Device Enabled\" 1"
 
 
 # shadow commands

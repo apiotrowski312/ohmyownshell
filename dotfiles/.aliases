@@ -14,11 +14,12 @@ alias kga='kubectl get all'
 alias knifee='knife environment'
 
 # linux utils
-alias magic-keyboard="echo 2 > /sys/module/hid_apple/parameters/fnmode"
+alias magic-keyboard="sudo su -c \"echo 2 > /sys/module/hid_apple/parameters/fnmode\""
 alias disable-touchpad="xinput set-prop 12 \"Device Enabled\" 0"
 alias enable-touchpad="xinput set-prop 12 \"Device Enabled\" 1"
 alias sound-hdmi="pacmd set-card-profile 0 output:hdmi-stereo+input:analog-stereo"
 alias sound-laptop="pacmd set-card-profile 0 output:analog-stereo+input:analog-stereo"
+alias dark-screen="sudo su -c \"echo 1 > /sys/class/backlight/intel_backlight/brightness"\"
 
 # golang
 alias git-go-lines="git ls-files | grep -P \".*(go)\" | xargs cat | wc -l"

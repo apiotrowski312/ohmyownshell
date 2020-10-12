@@ -4,19 +4,23 @@ declare homedir
 homedir=$(eval echo ~$SUDO_USER)
 
 function remove_section() {
-  sed -i '/## SCRIPT START/,/## SCRIPT END/d' $homedir/.bashrc
+  sed -i '/## OHMYSHELL START/,/## OHMYSHELL END/d' $homedir/.bashrc
 }
 
 function start_section() {
-  echo "## SCRIPT START" >> $homedir/.bashrc
+  echo "## OHMYSHELL START" >> $homedir/.bashrc
 }
 
 function add_line_to_section() {
   echo source "$(dirname $(readlink -f $0))/dotfiles/$1" >> $homedir/.bashrc
 }
 
+function add_custom_line() {
+  echo "$1" >> $homedir/.bashrc
+}
+
 function end_section() {
-  echo "## SCRIPT END" >> $homedir/.bashrc
+  echo "## OHMYSHELL END" >> $homedir/.bashrc
 }
 
 function add_source_section() {
@@ -29,7 +33,16 @@ function add_source_section() {
   add_line_to_section fzf.sh
   add_line_to_section .ssh-agent
 
+  # Following lines are for Golang installation
+  add_custom_line "export GOROOT=${homedir}/.go"
+  add_custom_line 'export PATH=$GOROOT/bin:$PATH'
+  add_custom_line 'export PATH=$GOPATH/bin:$PATH'
+
   end_section
+}
+
+function vim_setup() {
+  ln -n nvim/init.vim ${homedir}/.config/nvim/init.vim
 }
 
 function docker_no_sudo() {
@@ -48,3 +61,5 @@ function add_app_to_autostart() {
     chown $SUDO_USER:$SUDO_USER ${homedir}/.config/autostart/*${app}*
   done
 }
+
+# vim: ts=2 sts=2 sw=2 et

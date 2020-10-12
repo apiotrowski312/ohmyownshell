@@ -1,3 +1,3 @@
 # ohmyownshell
 
-My personal bash config. Contains useful aliases, variables and other
+My personal bash configuration. Contains useful aliases, variables, nvim configuration etc.

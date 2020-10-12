@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Load functions
 source "$(dirname $(readlink -f $0))/scripts/install_apps.sh"
 source "$(dirname $(readlink -f $0))/scripts/setup.sh"
 source "$(dirname $(readlink -f $0))/scripts/logs.sh"
@@ -26,6 +27,9 @@ BASE_PACKAGES=(
   filezilla
   kdenlive
   krita
+  nvim  
+  spectacle
+  flameshot
 
   snapd
 )
@@ -62,7 +66,6 @@ AUTOSTART=(
 function was_run_as_sudo() {
   if [[ -z "$SUDO_USER" ]]; then
     error_log "run script with sudo"
-
     exit 1
   fi
 }
@@ -77,17 +80,22 @@ function main() {
   install_deb_apps "${DEB_LINKS[@]}"
   install_snaps "${SNAPS[@]}"
 
-  ## workarounds
+  ## manual installation
   install_fzf
   install_docker
   install_brave
+  install_go
 
   ## setup
   add_source_section
   docker_no_sudo
   docker_auto_completition
 
+  vim_setup
+
   add_app_to_autostart "${AUTOSTART[@]}"
 }
 
 main
+
+# vim: ts=2 sts=2 sw=2 et

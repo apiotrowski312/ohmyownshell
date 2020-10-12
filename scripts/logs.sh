@@ -10,5 +10,6 @@ function info_log() {
 
 function error_log() {
     echo -e "[${RED_COLOR}ERROR${NO_COLOR}] [$(date -R)] $1"
-    exit 1
 }
+
+# vim: ts=2 sts=2 sw=2 et

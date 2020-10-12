@@ -22,14 +22,20 @@ alias sound-laptop="pacmd set-card-profile 0 output:analog-stereo+input:analog-s
 alias dark-screen="sudo su -c \"echo 1 > /sys/class/backlight/intel_backlight/brightness"\"
 
 # golang
-alias git-go-lines="git ls-files | grep -P \".*(go)\" | xargs cat | wc -l"
+alias git-go-lines="git ls-files | grep -P \".*go\$\" | xargs cat | wc -l"
 
 # other
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 alias update='sudo pkcon update'
 
-
 # shadow commands
 alias cat='bat --paging=never'
 alias ocat='/bin/cat'
+
+# Vim commands
+alias vi='nvim'
+alias vim='nvim'
+alias vimdiff="nvim -d"
+
+# vim: ts=2 sts=2 sw=2 et
